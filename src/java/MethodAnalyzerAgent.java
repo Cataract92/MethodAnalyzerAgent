@@ -19,7 +19,6 @@ import java.lang.instrument.Instrumentation;
 
 public class MethodAnalyzerAgent {
 
-
     public static void premain(String agentArgs,
                                Instrumentation inst) {
 
@@ -45,8 +44,6 @@ public class MethodAnalyzerAgent {
                     System.err.println(e.getMessage());
                     return classfileBuffer;
                 } }
-
-
 
             return classfileBuffer;
         });

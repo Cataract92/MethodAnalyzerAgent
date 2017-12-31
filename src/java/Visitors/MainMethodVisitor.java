@@ -33,7 +33,7 @@ public class MainMethodVisitor extends AdviceAdapter implements Opcodes
 
         localID = newLocal(Type.LONG_TYPE);
 
-        mv.visitMethodInsn(INVOKESTATIC,"java/lang/System","currentTimeMillis","()J",false);
+        mv.visitMethodInsn(INVOKESTATIC,"java/lang/System","nanoTime","()J",false);
         mv.visitVarInsn(LSTORE, localID);
     }
 
@@ -43,7 +43,7 @@ public class MainMethodVisitor extends AdviceAdapter implements Opcodes
 
         mv.visitLdcInsn(methodName);
         mv.visitVarInsn(LLOAD,localID);
-        mv.visitMethodInsn(INVOKESTATIC,"java/lang/System","currentTimeMillis","()J",false);
+        mv.visitMethodInsn(INVOKESTATIC,"java/lang/System","nanoTime","()J",false);
         mv.visitMethodInsn(INVOKESTATIC,"Injection/AnalyzingHandler","onMethodEnd","(Ljava/lang/String;JJ)V",false);
 
     }

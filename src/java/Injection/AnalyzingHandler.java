@@ -58,7 +58,7 @@ public class AnalyzingHandler {
                 System.out.println("MethodName: "+methodName);
                 System.out.println("Times Called: "+callCounter);
 
-                System.out.println("Average Processing Time " + decimalFormat.format(processingTime / 1000d) +"s\n");
+                System.out.println("Average Processing Time " + decimalFormat.format(processingTime / 1000000000d) +"s\n");
             }
         }, "Shutdown-thread"));
     }
