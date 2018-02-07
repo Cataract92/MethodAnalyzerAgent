@@ -10,13 +10,6 @@
 
     <target name = "build" description = "Compile source tree fst files">
 
-        <delete includeemptydirs="true">
-            <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
-        </delete>
-        <delete>
-            <fileset dir = "${basedir}" includes="MethodAnalyzerAgent.jar"/>
-        </delete>
-
         <mkdir dir = "${build.dir}"/>
 
         <javac destdir = "${build.dir}" source = "1.8" target = "1.8" includeantruntime="false" >
@@ -33,10 +26,6 @@
                 <attribute name = "Premain-Class" value = "fst.MethodAnalyzerAgent"/>
             </manifest>
         </jar>
-
-        <delete includeemptydirs="true">
-            <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
-        </delete>
 
     </target>
 
