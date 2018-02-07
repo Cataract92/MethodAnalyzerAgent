@@ -1,0 +1,51 @@
+<?xml version = "1.0"?>
+<project name = "MethodAnalyzerAgent" basedir = "." default = "build">
+    <property name = "src.dir" value = "src"/>
+    <property name = "build.dir" value = "${basedir}/META-INF/classes"/>
+    <property name = "name" value = "MethodAnalyzerAgent"/>
+
+    <path id = "master-classpath">
+        <pathelement path = "${build.dir}"/>
+    </path>
+
+    <target name = "build" description = "Compile source tree fst files">
+
+        <delete includeemptydirs="true">
+            <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
+        </delete>
+        <delete>
+            <fileset dir = "${basedir}" includes="MethodAnalyzerAgent.jar"/>
+        </delete>
+
+        <mkdir dir = "${build.dir}"/>
+
+        <javac destdir = "${build.dir}" source = "1.8" target = "1.8" includeantruntime="false" >
+            <compilerarg value="-XDignore.symbol.file" />
+            <src path = "${src.dir}"/>
+            <classpath refid = "master-classpath"/>
+        </javac>
+
+        <jar destfile = "${basedir}/MethodAnalyzerAgent.jar"
+             basedir = "${build.dir}">
+
+            <manifest>
+                <attribute name = "Manifest-Version" value ="1.0"/>
+                <attribute name = "Premain-Class" value = "fst.MethodAnalyzerAgent"/>
+            </manifest>
+        </jar>
+
+        <delete includeemptydirs="true">
+            <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
+        </delete>
+
+    </target>
+
+    <target name = "clean" description = "Clean output directories">
+        <delete includeemptydirs="true">
+            <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
+        </delete>
+        <delete>
+            <fileset dir = "${basedir}" includes="MethodAnalyzerAgent.jar"/>
+        </delete>
+    </target>
+</project>
