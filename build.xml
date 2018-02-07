@@ -1,4 +1,7 @@
 <?xml version = "1.0"?>
+
+<!-- Nico Feld - 1169233 -->
+
 <project name = "MethodAnalyzerAgent" basedir = "." default = "build">
     <property name = "src.dir" value = "src"/>
     <property name = "build.dir" value = "${basedir}/META-INF/classes"/>

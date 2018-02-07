@@ -1,9 +1,10 @@
-package fst;
 /*
  * Copyright (c) 2017.
  * Nico Feld
  * 1169233
  */
+
+package fst;
 
 /*
     Usage:
