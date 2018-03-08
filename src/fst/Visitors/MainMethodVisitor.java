@@ -23,7 +23,7 @@ public class MainMethodVisitor extends AdviceAdapter implements Opcodes
         this.methodName = name;
     }
 
-
+/*
     @Override
     protected void onMethodEnter() {
         super.onMethodEnter();
@@ -47,4 +47,5 @@ public class MainMethodVisitor extends AdviceAdapter implements Opcodes
         mv.visitMethodInsn(INVOKESTATIC,"fst/Injection/AnalyzingHandler","onMethodEnd","(Ljava/lang/String;JJ)V",false);
 
     }
+    */
 }

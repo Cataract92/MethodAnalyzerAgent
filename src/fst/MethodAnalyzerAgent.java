@@ -33,22 +33,20 @@ public class MethodAnalyzerAgent {
 
         inst.addTransformer((loader, className, classBeingRedefined, protectionDomain, classfileBuffer) ->
         {
-            if (AnalyzingHandler.targetClassName.equals(className)) {
-                try {
-                    ClassReader classReader = new ClassReader(classfileBuffer);
-                    ClassWriter classWriter = new ClassWriter(classReader,
-                            ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-                    ClassVisitor mainClassVisitor = new
-                            MainClassVisitor(classWriter);
-                    classReader.accept(mainClassVisitor,
-                            ClassReader.EXPAND_FRAMES);
-                    return classWriter.toByteArray();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println(e.getMessage());
-                    return classfileBuffer;
-                } }
-
+            System.out.println(loader+" "+className+ " "+classBeingRedefined+" "+protectionDomain+" "+classfileBuffer);
+            try {
+                ClassReader classReader = new ClassReader(classfileBuffer);
+                ClassWriter classWriter = new ClassWriter(classReader,
+                        ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+                ClassVisitor mainClassVisitor = new
+                        MainClassVisitor(classWriter);
+                classReader.accept(mainClassVisitor,
+                        ClassReader.EXPAND_FRAMES);
+                return classWriter.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getMessage());
+            }
             return classfileBuffer;
         });
     }

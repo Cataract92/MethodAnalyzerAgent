@@ -32,6 +32,15 @@
 
     </target>
 
+    <target name="run_test" description="Run test program with agent">
+
+        <antcall target="build"/>
+
+        <java jar="SDRaytracer.jar" fork="true">
+            <jvmarg line="-javaagent:MethodAnalyzerAgent.jar"/>
+        </java>
+    </target>
+
     <target name = "clean" description = "Clean output directories">
         <delete includeemptydirs="true">
             <fileset dir = "${basedir}" defaultexcludes="false" includes="**/META-INF/"/>
