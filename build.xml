@@ -27,6 +27,9 @@
             <manifest>
                 <attribute name = "Manifest-Version" value ="1.0"/>
                 <attribute name = "Premain-Class" value = "fst.MethodAnalyzerAgent"/>
+                <attribute name = "Can-Redefine-Classes" value = "true"/>
+                <attribute name = "Can-Retransform-Classes" value = "true"/>
+                <attribute name = "Permissions" value = "all-permissions"/>
             </manifest>
         </jar>
 
@@ -36,7 +39,7 @@
 
         <antcall target="build"/>
 
-        <java jar="SDRaytracer.jar" fork="true">
+        <java jar="PathfinderTester.jar" fork="true">
             <jvmarg line="-javaagent:MethodAnalyzerAgent.jar"/>
         </java>
     </target>

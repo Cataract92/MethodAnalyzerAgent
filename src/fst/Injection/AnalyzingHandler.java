@@ -38,7 +38,7 @@ public class AnalyzingHandler {
         }
     }
 
-    public static String targetClassName;
+    public static String targetPackageName;
 
     private static HashMap<String,TimeCounter> methodCallTimes = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class AnalyzingHandler {
 
             DecimalFormat decimalFormat = new DecimalFormat("#.#######");
 
-            System.out.println("\n\nProfiling of class: " + targetClassName + "\n");
+            System.out.println("\n\nProfiling of class: " + targetPackageName + "\n");
             for (String methodName : methodCallTimes.keySet())
             {
                 double processingTime = methodCallTimes.get(methodName).getProcessingTime();
