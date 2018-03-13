@@ -6,10 +6,9 @@
 
 package fst.Visitors;
 
-import jdk.internal.org.objectweb.asm.ClassVisitor;
-import jdk.internal.org.objectweb.asm.FieldVisitor;
-import jdk.internal.org.objectweb.asm.MethodVisitor;
-import jdk.internal.org.objectweb.asm.Opcodes;
+import fst.Injection.Wrapper.ClassWrapper;
+import fst.Injection.Wrapper.FieldWrapper;
+import jdk.internal.org.objectweb.asm.*;
 
 import java.lang.instrument.Instrumentation;
 
@@ -17,14 +16,15 @@ public class MainClassVisitor extends ClassVisitor implements Opcodes
 {
     private static final int API_VERSION = ASM5;
 
-    private String className;
     private Instrumentation instrumentation;
+    private ClassWrapper classWrapper;
+
 
     public MainClassVisitor(ClassVisitor cv, Instrumentation instrumentation, String className)
     {
         super(API_VERSION, cv);
-        this.className = className;
         this.instrumentation = instrumentation;
+        this.classWrapper = new ClassWrapper(this,className);
     }
 
     @Override
@@ -38,12 +38,16 @@ public class MainClassVisitor extends ClassVisitor implements Opcodes
 
     @Override
     public FieldVisitor visitField(int i, String s, String s1, String s2, Object o) {
-        System.out.println(i+" "+s+" "+s1+" "+s2+" "+o);
+        if ((i & Opcodes.ACC_STATIC) != 0)
+            classWrapper.addStaticField(new FieldWrapper(s, true));
+        else
+            classWrapper.addNonStaticField(new FieldWrapper(s, false));
+
         return super.visitField(i, s, s1, s2, o);
     }
 
-    public String getClassName() {
-        return className;
+    public ClassWrapper getClassWrapper() {
+        return classWrapper;
     }
 
     public Instrumentation getInstrumentation() {

@@ -6,6 +6,8 @@
 
 package fst.Injection;
 
+import fst.Injection.Wrapper.MethodWrapper;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
@@ -63,10 +65,14 @@ public class AnalyzingHandler {
         }, "Shutdown-thread"));
     }
 
-    public static void onMethodEnd(String methodName, long methodStartTime, long methodEndTime)
+    public static void onMethodEnter(String uuid,Object reference)
     {
-        if (!methodCallTimes.containsKey(methodName)) methodCallTimes.put(methodName,new TimeCounter());
+        System.out.println(MethodWrapper.getClassWrapperByUUID(uuid).getName()+" "+reference);
+        MethodWrapper.getClassWrapperByUUID(uuid).setRunning(true);
+    }
 
-        methodCallTimes.get(methodName).update(methodEndTime-methodStartTime);
+    public static void onMethodExit(String uuid)
+    {
+        MethodWrapper.getClassWrapperByUUID(uuid).setRunning(false);
     }
 }
