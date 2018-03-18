@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2017.
+ * Nico Feld
+ * 1169233
+ */
+
 package fst.Injection.Wrapper;
 
 import java.util.UUID;
