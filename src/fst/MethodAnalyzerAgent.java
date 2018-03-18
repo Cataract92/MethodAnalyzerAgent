@@ -8,16 +8,15 @@ package fst;
 
 /*
     Usage:
-        Add as a VM parameter: -javaagent:{PathToJar}={TargetProjectName}
-        eg.: -javaagent:/home/fst/MethodAnalyzerAgent.jar=SDRaytracer
+        Add as a VM parameter: -javaagent:{PathToJar}={TargetClasses}
+        eg.: -javaagent:/home/fst/MethodAnalyzerAgent.jar=PathfinderTester,AStar
 */
 
-import fst.Injection.AnalyzingHandler;
+import fst.Injection.Logger;
 import fst.Visitors.MainClassVisitor;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassVisitor;
 import jdk.internal.org.objectweb.asm.ClassWriter;
-
 import java.lang.instrument.Instrumentation;
 import java.util.*;
 
@@ -35,13 +34,20 @@ public class MethodAnalyzerAgent {
             while (tokenizer.hasMoreTokens()) {
                 classes.add(tokenizer.nextToken());
             }
-        } else
+        } else {
             classes.add("PathfinderTester");
+            classes.add("AStar");
+            classes.add("MinMax");
+            classes.add("PFAlgorithm");
+            classes.add("VisibilityGraphs");
+            classes.add("Level1");
+            classes.add("CustomMouseListener");
+        }
 
         inst.addTransformer((loader, className, classBeingRedefined, protectionDomain, classfileBuffer) ->
         {
             if (classes.stream().anyMatch(className::contains)) {
-
+                System.out.println(className);
                 try {
                     ClassReader classReader = new ClassReader(classfileBuffer);
                     ClassWriter classWriter = new ClassWriter(classReader,
@@ -56,8 +62,12 @@ public class MethodAnalyzerAgent {
                     System.err.println(e.getMessage());
                 }
             }
+
             return classfileBuffer;
         });
+
+        Logger l = new Logger(inst);
+        l.start();
     }
 
 }

@@ -10,23 +10,23 @@ public class ClassWrapper {
 
     static private HashMap<String, ClassWrapper> uuidClassMap = new HashMap<>();
 
-    private UUID uuid = UUID.randomUUID();
+    private String uuid = UUID.randomUUID().toString();
     private String name;
     private MainClassVisitor mcv;
 
+    private ArrayList<Object> instances = new ArrayList<>();
+
     private ArrayList<FieldWrapper> staticFields = new ArrayList<>();
-    private ArrayList<FieldWrapper> nonStaticFields = new ArrayList<>();
 
-    private ArrayList<MethodWrapper> staticMethods = new ArrayList<>();
-    private ArrayList<MethodWrapper> nonStaticMethods = new ArrayList<>();
+    private ArrayList<MethodWrapper> methods = new ArrayList<>();
 
-    public ClassWrapper (MainClassVisitor mcv,String name) {
+    public ClassWrapper(MainClassVisitor mcv,String name) {
         this.name = name;
         this.mcv = mcv;
-        uuidClassMap.put(uuid.toString(),this);
+        uuidClassMap.put(uuid,this);
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -42,16 +42,8 @@ public class ClassWrapper {
         return staticFields;
     }
 
-    public ArrayList<FieldWrapper> getNonStaticFields() {
-        return nonStaticFields;
-    }
-
-    public ArrayList<MethodWrapper> getStaticMethods() {
-        return staticMethods;
-    }
-
-    public ArrayList<MethodWrapper> getNonStaticMethods() {
-        return nonStaticMethods;
+    public ArrayList<MethodWrapper> getMethods() {
+        return methods;
     }
 
     public void addStaticField(FieldWrapper field)
@@ -59,19 +51,9 @@ public class ClassWrapper {
         staticFields.add(field);
     }
 
-    public void addNonStaticField(FieldWrapper field)
+    public void addMethod(MethodWrapper method)
     {
-        nonStaticFields.add(field);
-    }
-
-    public void addStaticMethod(MethodWrapper method)
-    {
-        staticMethods.add(method);
-    }
-
-    public void addNonStaticMethod(MethodWrapper method)
-    {
-        nonStaticMethods.add(method);
+        methods.add(method);
     }
 
     public static ClassWrapper getClassWrapperByUUID(String uuid)
@@ -82,5 +64,14 @@ public class ClassWrapper {
     public static ArrayList<ClassWrapper> getAllClasses()
     {
         return new ArrayList<>(uuidClassMap.values());
+    }
+
+    public void addInstance(Object obj)
+    {
+        instances.add(obj);
+    }
+
+    public ArrayList<Object> getInstances() {
+        return instances;
     }
 }

@@ -4,16 +4,14 @@ import java.util.UUID;
 
 public class FieldWrapper {
 
-    private UUID uuid = UUID.randomUUID();
+    private String uuid = UUID.randomUUID().toString();
     private String name;
-    private boolean isStatic = false;
 
-    public FieldWrapper(String name, boolean isStatic) {
+    public FieldWrapper(String name) {
         this.name = name;
-        this.isStatic = isStatic;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -21,7 +19,4 @@ public class FieldWrapper {
         return name;
     }
 
-    public boolean isStatic() {
-        return isStatic;
-    }
 }
